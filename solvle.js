@@ -40,11 +40,9 @@ const charPositions = (str, char) => {
 const removeWordsContainingBadPosChars = (wordlist, guess, posCorrectChars, correctChars) => {
     for (const char of correctChars){
         if (posCorrectChars.includes(char)){
-            // console.log(`position in guess is correct for char ${char}`)
             // remove words which do not use known character position
             wordlist = wordlist.filter(word => charPositions(word, char).some(pos => charPositions(guess, char).includes(pos)))      
         } else {
-            // console.log(`position in guess is incorrect for char ${char}`)
             // remove words which contain known characters in known incorrect positions
             wordlist = wordlist.filter(word => !charPositions(word, char).some(pos => charPositions(guess, char).includes(pos)))
         }
@@ -77,7 +75,6 @@ const suggestedWords = (wordlist) => {
 
     const res = Object.entries(suggested).sort(([,a],[,b]) => a-b).reverse()
     return res
-    
 }
 
 async function main(){
@@ -89,7 +86,6 @@ async function main(){
         guess = await userInput("guess?: ")
 
         const correctChars = await userInput("Which (if any) of the guess characters are correct?: ")
-        if (correctChars.length === 5) break
 
         const posCorrectChars = await userInput("Which (if any) of the guess characters are correct AND in the correct position?: ")
         if (posCorrectChars.length === 5) break
@@ -109,10 +105,7 @@ async function main(){
         }
         console.log('recommended words:', suggestions.join(', '))
         if (wordlist.length < 2) break
-        console.log()
-
-
-        
+        console.log() 
     }
     console.log("Success!")
 }
